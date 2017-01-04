@@ -9,9 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="BookshelfBundle\Repository\BookRepository")
+ * 
  */
-class Book
-{
+class Book {
+    
+    public function __toString() {
+        return $this->name;
+    }
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="books")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    
+    private $category;
     /**
      * @var int
      *
@@ -48,14 +59,6 @@ class Book
      * @ORM\Column(name="ISBN", type="string", length=255, unique=true)
      */
     private $iSBN;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
-     */
-    private $category;
-
 
     /**
      * Get id
@@ -157,28 +160,5 @@ class Book
     public function getISBN()
     {
         return $this->iSBN;
-    }
-
-    /**
-     * Set category
-     *
-     * @param string $category
-     * @return Book
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string 
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 }
