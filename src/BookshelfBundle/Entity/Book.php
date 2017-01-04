@@ -161,4 +161,27 @@ class Book {
     {
         return $this->iSBN;
     }
+
+    /**
+     * Set category
+     *
+     * @param \BookshelfBundle\Entity\Category $category
+     * @return Book
+     */
+    public function setCategory(\BookshelfBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \BookshelfBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }
