@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Book controller.
@@ -87,8 +88,14 @@ class BookController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        $this->getDoctrine()->getManager()->flush();
+        
+        if ($fantasyExists = $this->getDoctrine()
+                ->getRepository('BookshelfBundle:Book')
+                ->findBy(array('category_id' => $editForm->get('1')->getData()))) {
+            var_dump($fantasyExists);
+        }
+            
             return $this->redirectToRoute('book_edit', array('id' => $book->getId()));
         }
 

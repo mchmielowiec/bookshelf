@@ -70,4 +70,44 @@ class Category {
     {
         return $this->categoryName;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add books
+     *
+     * @param \BookshelfBundle\Entity\Category $books
+     * @return Category
+     */
+    public function addBook(\BookshelfBundle\Entity\Category $books)
+    {
+        $this->books[] = $books;
+
+        return $this;
+    }
+
+    /**
+     * Remove books
+     *
+     * @param \BookshelfBundle\Entity\Category $books
+     */
+    public function removeBook(\BookshelfBundle\Entity\Category $books)
+    {
+        $this->books->removeElement($books);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
 }
